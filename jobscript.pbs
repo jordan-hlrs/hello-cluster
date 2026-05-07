@@ -1,0 +1,37 @@
+#!/bin/bash
+#
+# PBS batch script for two exclusive APU nodes (4x MI300A each)
+# 8 MPI ranks total (4 per node), one per chip, 22 OpenMP threads each
+# Note: 2 cores per chip are reserved for OS/system use
+#
+
+#PBS -N myjobname
+#PBS -o logfilename.log
+#PBS -e errorfilename.err
+### email on begin, abort, and end; or use '-m n' to suppress emails
+#PBS -m bae
+#PBS -M <your email>
+#PBS -l select=2:node_type=mi300a:mpiprocs=4:ompthreads=22
+#PBS -l walltime=00:10:00
+#PBS -q test
+
+cd $PBS_O_WORKDIR
+
+NODES=2   # must match select= above
+PPN=4	  # processes per node
+NP=$(( NODES * PPN )) # total number of MPI processes
+
+export OMP_NUM_THREADS=22
+export OMP_PROC_BIND=close
+export MPICH_OFI_NIC_POLICY=NUMA
+
+module load rocm
+module load cray-mpich/9.0.1
+export LD_LIBRARY_PATH=/opt/cray/pe/mpich/9.0.1/gtl/lib:$LD_LIBRARY_PATH
+
+### program launch command
+### Important: pin the CPUs and the GPU of the same MI300A chip together
+mpiexec -ppn $PPN -np $NP \
+    --cpu-bind list:2-23:26-47:50-71:74-95 \
+    --gpu-bind list:0:1:2:3 \
+    ./hello_jobstep | sort -k2n -k5n
