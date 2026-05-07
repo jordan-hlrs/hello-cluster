@@ -48,8 +48,10 @@ $ make
 ## Usage
 
 Inside jobscript.pbs, change <your email> to your email to get notified about job start and end. Then run:
+
 qsub jobscript.pbs
 
+Example content of the output file 'logfilename.log':
 ```
 MPI 000 - OMP 000 - HWT 002 - Node x1001c1s1b0n0 - RT_GPU_ID 0 - GPU_ID 0 - Bus_ID 02
 MPI 000 - OMP 001 - HWT 003 - Node x1001c1s1b0n0 - RT_GPU_ID 0 - GPU_ID 0 - Bus_ID 02
