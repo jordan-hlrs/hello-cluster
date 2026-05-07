@@ -7,7 +7,9 @@ LIBRARIES = -L${ROCM_PATH}/lib -lamdhip64
 
 BUILDDIR = build
 
-hello_jobstep: $(BUILDDIR)/hello_jobstep $(BUILDDIR)/jobscript.pbs
+.PHONY: all clean
+
+all: $(BUILDDIR)/hello_jobstep $(BUILDDIR)/jobscript.pbs
 
 $(BUILDDIR)/hello_jobstep: hello_jobstep.o | $(BUILDDIR)
 	${COMP} ${LFLAGS} ${LIBRARIES} hello_jobstep.o -o $@
@@ -21,6 +23,5 @@ $(BUILDDIR)/jobscript.pbs: jobscript.pbs | $(BUILDDIR)
 $(BUILDDIR):
 	mkdir -p $(BUILDDIR)
 
-.PHONY: clean
 clean:
 	rm -rf $(BUILDDIR) *.o
