@@ -42,13 +42,34 @@ hunter> export http_proxy=$https_proxy
 ```
 $ git clone https://github.com/jordan-hlrs/hello-cluster.git
 $ cd hello-cluster
+Inside jobscript.pbs, change <your email> to your email to get notified about job start and end.
 $ make
 ```
 
 ## Usage
 
-Inside jobscript.pbs, change <your email> to your email to get notified about job start and end. Then run:
+You should develop and build your projects inside your $HOME but run your program inside your workspace.
+A typical workflow would be:
 
+# 1. One-time setup: if the workspace doesn't exist yet:
+ws_allocate hello_exercise 7
+ln -s $(ws_find hello_exercise) $HOME/hello_exercise
+
+# 1. (alternative) if the workspace already exists, check remaining time:
+ws_list -s hello_exercise
+# if it's running low, extend it (max duration is 60):
+ws_extend hello_exercise 7
+
+# 2. Development cycle (repeat as needed)
+cd $HOME/hello-cluster
+# ... edit source ...
+make
+
+# 3. Deploy
+cp -r build $HOME/hello_exercise/hello-cluster
+
+# 4. Submit
+cd $HOME/hello_exercise/hello-cluster
 qsub jobscript.pbs
 
 Example content of the output file 'logfilename.log':
