@@ -51,24 +51,24 @@ $ make
 You should develop and build your projects inside your $HOME but run your program inside your workspace.
 A typical workflow would be:
 
-# 1. One-time setup: if the workspace doesn't exist yet:
+#### 1. One-time setup: if the workspace doesn't exist yet:
 ws_allocate hello_exercise 7
 ln -s $(ws_find hello_exercise) $HOME/hello_exercise
 
-# 1. (alternative) if the workspace already exists, check remaining time:
+#### 1. (alternative) if the workspace already exists, check remaining time:
 ws_list -s hello_exercise
 # if it's running low, extend it (max duration is 60):
 ws_extend hello_exercise 7
 
-# 2. Development cycle (repeat as needed)
+#### 2. Development cycle (repeat as needed)
 cd $HOME/hello-cluster
-# ... edit source ...
+#### ... edit source ...
 make
 
-# 3. Deploy
+#### 3. Deploy
 cp -r build $HOME/hello_exercise/hello-cluster
 
-# 4. Submit
+#### 4. Submit
 cd $HOME/hello_exercise/hello-cluster
 qsub jobscript.pbs
 
