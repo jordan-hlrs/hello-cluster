@@ -1,7 +1,7 @@
 # `hello-jobstep`
 This project ist forked from 
 https://code.ornl.gov/olcf/hello_jobstep.git
-but with an adjusted Makefile and a pbs jobscript to make it work on Hunter.
+but with an adjusted Makefile and a pbs jobscript to make it work on [Hunter](https://www.hlrs.de/de/loesungen/systeme/hunter).
 
 This repository is a test repository for git clone behind a fire wall and an example for affilation and pinning for Hunter.
 
