@@ -1,4 +1,4 @@
-# `hello-cluster`
+# `hello-jobstep`
 This project ist forked from 
 https://code.ornl.gov/olcf/hello_jobstep.git
 but with an adjusted Makefile and a pbs jobscript to make it work on Hunter.
