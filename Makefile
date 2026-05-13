@@ -1,6 +1,5 @@
 COMP   = CC
 CFLAGS = -std=c++11 -fopenmp --rocm-path=${ROCM_PATH} -x hip
-LMOD_SYSTEM_NAME = frontier
 LFLAGS = -fopenmp --rocm-path=${ROCM_PATH}
 INCLUDES  = -I${ROCM_PATH}/include
 LIBRARIES = -L${ROCM_PATH}/lib -lamdhip64
